@@ -1,0 +1,125 @@
+/* Base Styles */
+body { font-family: 'Sarabun', sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #333; }
+.container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+h1, h2, h3, h4 { margin-top: 0; color: #2c3e50; }
+h3 { border-bottom: 2px solid #e1e4e8; padding-bottom: 8px; font-size: 1.2rem; color: #0056b3; }
+.card { background: #fff; padding: 20px; border: 1px solid #e1e4e8; border-radius: 6px; margin-bottom: 20px; }
+
+/* Grid & Forms */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.form-group { margin-bottom: 10px; }
+label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Sarabun'; box-sizing: border-box; }
+
+/* --- TIMELINE STYLES (PARALLEL DESIGN) --- */
+.timeline-input-box { background: #e3f2fd; padding: 15px; border-radius: 6px; display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 20px; }
+.input-group { flex: 1; min-width: 120px; }
+
+.timeline-visual-container {
+    position: relative;
+    padding: 20px 0;
+    min-height: 100px;
+}
+
+/* แกนกลาง */
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #ccc;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    width: 45%;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+/* ฝั่งซ้าย: ยา */
+.timeline-item.drug {
+    left: 0;
+    border-left: 4px solid #28a745; /* สีเขียว */
+    text-align: right;
+    margin-right: auto; /* ดันไปซ้าย */
+}
+.timeline-item.drug::after { /* จุดบนเส้น */
+    content: ''; position: absolute; right: -11.5%; top: 15px;
+    width: 10px; height: 10px; background: #28a745; border-radius: 50%;
+}
+
+/* ฝั่งขวา: อาการ */
+.timeline-item.symptom {
+    left: 55%; /* เริ่มจากครึ่งขวา */
+    border-left: 4px solid #dc3545; /* สีแดง */
+    text-align: left;
+}
+.timeline-item.symptom::after {
+    content: ''; position: absolute; left: -11.5%; top: 15px;
+    width: 10px; height: 10px; background: #dc3545; border-radius: 50%;
+}
+
+.time-badge { font-weight: bold; font-size: 0.85rem; color: #555; display: block; margin-bottom: 4px; }
+.btn-del-time { float: right; background: none; border: none; color: red; cursor: pointer; font-size: 0.8rem; }
+.timeline-item.drug .btn-del-time { float: left; }
+
+/* --- ALGORITHMS & TABS --- */
+.tabs { margin-bottom: 15px; border-bottom: 1px solid #ccc; }
+.tab-btn { background: none; border: none; padding: 10px 20px; cursor: pointer; font-size: 1rem; color: #555; border-bottom: 3px solid transparent; }
+.tab-btn.active { color: #0056b3; border-bottom: 3px solid #0056b3; font-weight: bold; }
+.algo-content { display: none; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.assessment-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.assessment-table th, .assessment-table td { border: 1px solid #ddd; padding: 8px; }
+.assessment-table th { background: #f8f9fa; }
+.assessment-table td.center { text-align: center; }
+
+.result-box { background: #f1f8ff; padding: 15px; border: 1px solid #d1e7dd; border-radius: 4px; text-align: center; font-size: 1.1rem; }
+
+/* Thai Criteria */
+.thai-criteria .criteria-row { padding: 8px 0; border-bottom: 1px solid #eee; }
+
+/* Buttons */
+.btn-add { background: #28a745; color: white; border: none; padding: 0 15px; height: 38px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.btn-info { background: #17a2b8; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-top: 5px; }
+.btn-print { background: #0056b3; color: white; padding: 12px 25px; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+
+/* PRINT MODE */
+.print-header, .print-footer { display: none; }
+
+@media print {
+    body { background: white; padding: 0; }
+    .container { max-width: 100%; box-shadow: none; padding: 0; }
+    .no-print { display: none !important; }
+    .card { border: none; padding: 0; margin-bottom: 20px; page-break-inside: avoid; }
+    
+    /* Headers */
+    .print-header { display: block; text-align: center; margin-bottom: 20px; }
+    
+    /* Force Tabs to Show ALL Content stacked */
+    .algo-content { display: block !important; margin-bottom: 30px; border-bottom: 1px dashed #ccc; padding-bottom: 20px; }
+    .tabs { display: none; } /* Hide buttons */
+    
+    /* Timeline Print Fixes */
+    .timeline-visual-container { border-left: none; }
+    .timeline-line { background: #000; }
+    .timeline-item { border: 1px solid #000 !important; background: white !important; }
+    .timeline-item.drug { border-left: 4px solid #000 !important; }
+    .timeline-item.symptom { border-left: 4px solid #000 !important; }
+    .timeline-item::after { display: none; } /* Remove dots for cleaner print */
+    
+    /* Inputs */
+    input, textarea, select { border: none; background: transparent; padding: 0; resize: none; color: black; }
+    
+    /* Footer */
+    .print-footer { display: block; margin-top: 50px; page-break-inside: avoid; }
+    .sign-box { float: right; text-align: center; width: 300px; }
+}
